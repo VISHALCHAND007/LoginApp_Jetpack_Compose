@@ -1,8 +1,10 @@
 package com.example.login.components
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -22,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.modifier.modifierLocalMapOf
 import androidx.compose.ui.platform.LocalTextInputService
 import androidx.compose.ui.platform.textInputServiceFactory
 import androidx.compose.ui.res.colorResource
@@ -182,16 +185,14 @@ fun TermsAndConditions(
     val termsOfUse = stringResource(id = R.string.terms_of_use)
     val termsAndConditionsStr = buildAnnotatedString {
         append(initialString)
-        withStyle(
-            style = SpanStyle(
-                color = Color.Blue
-            )
-        ) {
-            {
+        append(" ")
+        withStyle(style = SpanStyle(color = Color.Blue)) {
+            run {
                 pushStringAnnotation(tag = privacyPolicy, annotation = privacyPolicy)
-                append(privacyPolicy)
             }
+            append(privacyPolicy)
         }
+
         append(" and ")
         withStyle(style = SpanStyle(color = Color.Blue)) {
             pushStringAnnotation(tag = termsOfUse, annotation = termsOfUse)
@@ -199,17 +200,22 @@ fun TermsAndConditions(
         }
     }
 
-
     Row(
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.Bottom,
+        modifier = Modifier
+            .fillMaxWidth(),
+        horizontalArrangement = Arrangement.Start
     ) {
-        Checkbox(checked = isCheckBoxClicked, onCheckedChange = {
-            isCheckBoxClicked = !isCheckBoxClicked
-        })
-        ClickableText(text = termsAndConditionsStr, onClick = { offSet ->
+        Checkbox(
+            checked = isCheckBoxClicked, onCheckedChange = {
+                isCheckBoxClicked = !isCheckBoxClicked
+                onCheckBoxClicked(isCheckBoxClicked)
+            })
+        ClickableText(
+            text = termsAndConditionsStr, onClick = { offSet ->
             termsAndConditionsStr.getStringAnnotations(offSet, offSet)
                 .firstOrNull()?.also { span ->
-                    if(span.item == termsOfUse || span.item == privacyPolicy) {
+                    if (span.item == termsOfUse || span.item == privacyPolicy) {
                         onTextClicked(span.item)
                     }
                 }
