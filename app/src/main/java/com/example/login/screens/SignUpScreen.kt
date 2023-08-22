@@ -14,18 +14,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.example.login.R
 import com.example.login.components.BoldText
+import com.example.login.components.ButtonComposable
+import com.example.login.components.ClickableText
+import com.example.login.components.DividerComposable
 import com.example.login.components.NormalText
 import com.example.login.components.PasswordTextField
 import com.example.login.components.Spacer
 import com.example.login.components.TermsAndConditions
 import com.example.login.components.TextField
+import com.example.login.navigate.Screen
 
 @Composable
-fun SignUpScreen() {
+fun SignUpScreen(navigationController: NavHostController) {
     Surface(
         modifier = Modifier
             .fillMaxSize()
@@ -70,6 +74,18 @@ fun SignUpScreen() {
             TermsAndConditions(onCheckBoxClicked = {}, onTextClicked = {
                 Log.e("here==", it)
             })
+            Spacer(value = 80.dp)
+            ButtonComposable(text = "Register")
+            Spacer()
+            DividerComposable()
+            Spacer(value = 20.dp)
+            ClickableText(displayText = stringResource(id = R.string.already_have_an_account),
+                clickableText = stringResource(id = R.string.app_name),
+                onClick = {
+                    if(it == "Login") {
+                        navigationController.navigate(Screen.SignInScreen.route)
+                    }
+                })
         }
     }
 }

@@ -1,14 +1,18 @@
 package com.example.login.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -21,12 +25,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.input.key.Key
-import androidx.compose.ui.modifier.modifierLocalMapOf
-import androidx.compose.ui.platform.LocalTextInputService
-import androidx.compose.ui.platform.textInputServiceFactory
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -39,6 +41,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -55,7 +58,8 @@ fun NormalText(
             .fillMaxWidth(),
         style = TextStyle(
             fontSize = 20.sp,
-            color = colorResource(id = R.color.colorText)
+            color = colorResource(id = R.color.colorText),
+            fontWeight = FontWeight.SemiBold
         ),
         textAlign = TextAlign.Center
     )
@@ -213,12 +217,132 @@ fun TermsAndConditions(
             })
         ClickableText(
             text = termsAndConditionsStr, onClick = { offSet ->
-            termsAndConditionsStr.getStringAnnotations(offSet, offSet)
+                termsAndConditionsStr.getStringAnnotations(offSet, offSet)
+                    .firstOrNull()?.also { span ->
+                        if (span.item == termsOfUse || span.item == privacyPolicy) {
+                            onTextClicked(span.item)
+                        }
+                    }
+            })
+    }
+}
+
+@Composable
+fun ButtonComposable(
+    text: String,
+    icon: ImageVector? = null
+) {
+    Button(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(60.dp)
+            .background(
+                brush = Brush.horizontalGradient(
+                    listOf(
+                        colorResource(id = R.color.colorSecondary),
+                        colorResource(id = R.color.colorPrimary)
+                    )
+                ),
+                shape = RoundedCornerShape(50.dp)
+            ),
+        onClick = { }) {
+        if (icon != null) {
+            Icon(
+                imageVector = icon,
+                contentDescription = text,
+                tint = Color.Black,
+                modifier = Modifier.padding(end = 10.dp)
+            )
+        }
+        Text(
+            text = text,
+            style = TextStyle(
+                color = Color.White,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.SemiBold
+            )
+        )
+    }
+}
+
+@Composable
+fun DividerComposable() {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Divider(
+            modifier = Modifier
+                .width(1.dp)
+                .background(colorResource(id = R.color.colorGray))
+                .weight(1f)
+        )
+        Text(
+            text = "Or",
+            color = colorResource(id = R.color.colorText),
+            modifier = Modifier.padding(10.dp)
+        )
+        Divider(
+            modifier = Modifier
+                .width(1.dp)
+                .background(colorResource(id = R.color.colorGray))
+                .weight(1f)
+        )
+    }
+}
+
+@Composable
+fun ClickableText(
+    displayText: String,
+    clickableText: String,
+    onClick: (String) -> Unit
+) {
+    val usedStr = buildAnnotatedString {
+        append(displayText)
+        withStyle(style = SpanStyle(color = Color.Blue)) {
+            pushStringAnnotation(tag = clickableText, annotation = clickableText)
+            append(" ")
+            append(clickableText)
+        }
+    }
+
+    ClickableText(
+        modifier = Modifier.fillMaxWidth(),
+        text = usedStr, onClick = { offSet ->
+            usedStr.getStringAnnotations(offSet, offSet)
                 .firstOrNull()?.also { span ->
-                    if (span.item == termsOfUse || span.item == privacyPolicy) {
-                        onTextClicked(span.item)
+                    if (span.item == clickableText) {
+                        onClick(clickableText)
                     }
                 }
-        })
+        },
+        style = TextStyle(
+            fontSize = 18.sp,
+            textAlign = TextAlign.Center
+        )
+    )
+}
+
+@Composable
+fun ForgotPasswordComposable(
+    text: String,
+    onClick: () -> Unit
+) {
+    val annotatedStr = buildAnnotatedString {
+        withStyle(style = SpanStyle(color = Color.Blue)) {
+            append(text)
+        }
     }
+    ClickableText(
+        text = annotatedStr,
+        onClick = {
+            onClick()
+        },
+        style = TextStyle(
+            fontSize = 16.sp,
+            textAlign = TextAlign.Center,
+            textDecoration = TextDecoration.Underline
+        ),
+        modifier = Modifier.fillMaxWidth(),
+    )
 }
