@@ -104,6 +104,7 @@ fun TextField(
             textState = it
             onValueChanged(it)
         },
+        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
         label = { Text(text = label) },
         leadingIcon = {
             Icon(imageVector = icon, contentDescription = label, tint = Color.Black)

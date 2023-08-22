@@ -1,6 +1,5 @@
 package com.example.login.screens
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -72,7 +71,7 @@ fun SignUpScreen(navigationController: NavHostController) {
                 onValueChanged = {})
             Spacer()
             TermsAndConditions(onCheckBoxClicked = {}, onTextClicked = {
-                Log.e("here==", it)
+
             })
             Spacer(value = 80.dp)
             ButtonComposable(text = "Register")
