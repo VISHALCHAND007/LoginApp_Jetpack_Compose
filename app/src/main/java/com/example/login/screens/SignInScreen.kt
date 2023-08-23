@@ -52,7 +52,10 @@ fun SignInScreen(navigationController: NavHostController) {
         Spacer(value = 100.dp)
         ButtonComposable(
             text = stringResource(id = R.string.app_name),
-            icon = Icons.Default.ExitToApp
+            icon = Icons.Default.ExitToApp,
+            {
+
+            }
         )
         Spacer()
         DividerComposable()

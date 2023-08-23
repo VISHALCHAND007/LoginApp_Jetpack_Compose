@@ -231,7 +231,8 @@ fun TermsAndConditions(
 @Composable
 fun ButtonComposable(
     text: String,
-    icon: ImageVector? = null
+    icon: ImageVector? = null,
+    onButtonClicked: () -> Unit
 ) {
     Button(
         modifier = Modifier
@@ -246,7 +247,9 @@ fun ButtonComposable(
                 ),
                 shape = RoundedCornerShape(50.dp)
             ),
-        onClick = { }) {
+        onClick = {
+            onButtonClicked.invoke()
+        }) {
         if (icon != null) {
             Icon(
                 imageVector = icon,
