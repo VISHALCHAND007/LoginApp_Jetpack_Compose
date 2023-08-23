@@ -8,6 +8,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Lock
+import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -51,32 +52,40 @@ fun SignUpScreen(
             BoldText(text = stringResource(id = R.string.create_account))
             Spacer(value = 40.dp)
             TextField(
-                icon = Icons.Outlined.AccountCircle,
+                icon = Icons.Outlined.Person,
                 label = stringResource(id = R.string.first_name),
                 onValueChanged = {
                     registrationViewModel.onEvent(UIEvents.FirstNameChanged(it))
-                })
+                },
+                errorStatus = registrationViewModel.registrationUIState.value.firstNameError
+            )
             Spacer()
             TextField(
-                icon = Icons.Outlined.AccountCircle,
+                icon = Icons.Outlined.Person,
                 label = stringResource(id = R.string.last_name),
                 onValueChanged = {
                     registrationViewModel.onEvent(UIEvents.LastNameChanged(it))
-                })
+                },
+                errorStatus = registrationViewModel.registrationUIState.value.lastNameError
+            )
             Spacer()
             TextField(
                 icon = Icons.Outlined.Email,
                 label = stringResource(id = R.string.email),
                 onValueChanged = {
                     registrationViewModel.onEvent(UIEvents.EmailChanged(it))
-                })
+                },
+                errorStatus = registrationViewModel.registrationUIState.value.emailError
+            )
             Spacer()
             PasswordTextField(
                 icon = Icons.Outlined.Lock,
                 label = stringResource(id = R.string.password),
                 onValueChanged = {
                     registrationViewModel.onEvent(UIEvents.PasswordChanged(it))
-                })
+                },
+                errorStatus = registrationViewModel.registrationUIState.value.passwordError
+            )
             Spacer()
             TermsAndConditions(onCheckBoxClicked = {}, onTextClicked = {
 

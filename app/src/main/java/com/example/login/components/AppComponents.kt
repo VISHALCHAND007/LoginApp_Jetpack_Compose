@@ -92,7 +92,8 @@ fun BoldText(
 fun TextField(
     icon: ImageVector,
     label: String,
-    onValueChanged: (String) -> Unit
+    onValueChanged: (String) -> Unit,
+    errorStatus: Boolean = false
 ) {
     var textState by remember {
         mutableStateOf("")
@@ -112,7 +113,8 @@ fun TextField(
         textStyle = TextStyle(
             color = Color.Black,
             fontSize = 20.sp
-        )
+        ),
+        isError = !errorStatus
     )
 }
 
@@ -121,7 +123,8 @@ fun TextField(
 fun PasswordTextField(
     icon: ImageVector,
     label: String,
-    onValueChanged: (String) -> Unit
+    onValueChanged: (String) -> Unit,
+    errorStatus: Boolean = false
 ) {
     var textState by remember {
         mutableStateOf("")
@@ -172,7 +175,8 @@ fun PasswordTextField(
         ),
         visualTransformation = if (isVisible) VisualTransformation.None else PasswordVisualTransformation(
             mask = '*'
-        )
+        ),
+        isError = !errorStatus
     )
 }
 
