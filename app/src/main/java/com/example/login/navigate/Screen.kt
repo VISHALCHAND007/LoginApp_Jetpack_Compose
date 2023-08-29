@@ -3,6 +3,7 @@ package com.example.login.navigate
 sealed class Screen(val route: String) {
     object SignUpScreen: Screen("sign_up")
     object SignInScreen: Screen("sign_in")
+    object HomeScreen: Screen("home")
 
     fun args(vararg arg: String): String{
         return buildString {

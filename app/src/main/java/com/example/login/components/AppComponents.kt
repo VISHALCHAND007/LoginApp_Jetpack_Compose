@@ -27,7 +27,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -217,8 +216,8 @@ fun TermsAndConditions(
     ) {
         Checkbox(
             checked = isCheckBoxClicked, onCheckedChange = {
-                isCheckBoxClicked = !isCheckBoxClicked
                 onCheckBoxClicked(isCheckBoxClicked)
+                isCheckBoxClicked = !isCheckBoxClicked
             })
         ClickableText(
             text = termsAndConditionsStr, onClick = { offSet ->
@@ -236,9 +235,11 @@ fun TermsAndConditions(
 fun ButtonComposable(
     text: String,
     icon: ImageVector? = null,
-    onButtonClicked: () -> Unit
+    onButtonClicked: () -> Unit,
+    isEnabled: Boolean = false
 ) {
     Button(
+        enabled = isEnabled,
         modifier = Modifier
             .fillMaxWidth()
             .height(60.dp)

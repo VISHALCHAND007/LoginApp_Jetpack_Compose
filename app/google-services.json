@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "64809068566",
+    "project_id": "loginwithjpcompose",
+    "storage_bucket": "loginwithjpcompose.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:64809068566:android:3d5ff6de41a2a984532d37",
+        "android_client_info": {
+          "package_name": "com.example.login"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "64809068566-8ac237c3uq4ltcp0c4ib10km6otqhab2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.login",
+            "certificate_hash": "8bcfc44c6812da6ce4be45d38f7bad5b026db31b"
+          }
+        },
+        {
+          "client_id": "64809068566-kqo6hrm0pb9i5kkg05o66t74qe4ramvh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBVWlqy74g9jsm2_Kv4pWy08meVFePZS8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "64809068566-kqo6hrm0pb9i5kkg05o66t74qe4ramvh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
